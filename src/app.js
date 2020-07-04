@@ -1,6 +1,8 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
+const itemInfo = document.querySelector("#item-information");
 let objCount = 0;
+let totalChildren = 0;
 
 function sendHttpRequest(method, url) {
   const promise = new Promise((resolve, reject) => {
@@ -70,6 +72,7 @@ async function navigateServer() {
 function appendToDOM(obj, objName) {
   if (ul.childElementCount === 100) {
     ul.textContent = "";
+    itemInfo.textContent = "";
     objCount = 0;
   }
   objCount++;
@@ -77,9 +80,13 @@ function appendToDOM(obj, objName) {
   li.textContent = `${objCount}: ${objName.name}`;
   ul.append(li);
   li.addEventListener("click", () => {
-    const itemInfo = document.querySelector("#item-information");
     const listItem = document.createElement("li");
     listItem.id = "info-li";
+
+    const xBtn = document.createElement("button");
+    xBtn.textContent = "X";
+    xBtn.className = "x-btn";
+    listItem.appendChild(xBtn);
 
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
@@ -104,19 +111,31 @@ function appendToDOM(obj, objName) {
 
     listItem.append(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
+    totalChildren++
+    listItem.onmouseover = () => {
+      listItem.style.backgroundColor = 'white';
+    };
+
     const scrollUpBtn = document.querySelector('#scroll-up');
     scrollUpBtn.style.display = 'block';
     scrollUpBtn.scrollIntoView({ behavior: 'smooth' });
     scrollUpBtn.addEventListener('click', () => {
       const search = document.querySelector('#search');
-      search.scrollIntoView({ behavior: 'smooth'});
+      search.scrollIntoView({ behavior: "smooth" });
+    });
+    xBtn.addEventListener("click", () => {
+      xBtn.parentElement.parentElement.removeChild(listItem);
+      totalChildren -= 1;
+      if (totalChildren === 0) {
+        scrollUpBtn.style.display = 'none';
+      }
     });
   });
 }
 
 function appendErrorToDOM() {
-  ul.textContent = "";
-  const li = document.createElement("li");
+  ul.textContent = '';
+  const li = document.createElement('li');
   li.textContent = "INVALID SEARCH - NOTHING FOUND!";
   ul.append(li);
 }
