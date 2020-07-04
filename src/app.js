@@ -72,6 +72,7 @@ async function navigateServer() {
       const objName = {
         name: path.name,
       };
+      console.log(jsonObj);
       appendToDOM(jsonObj, objName);
     }
   }

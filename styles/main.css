@@ -7,6 +7,10 @@ html {
   margin: 0px;
 }
 
+#search {
+  margin-left: 55px;
+}
+
 #configuring-request,
 #search-results,
 #information {
@@ -169,4 +173,12 @@ ul {
   margin: 0px;
   border-top-right-radius: 10px;
   margin-left: 345px;
+}
+
+#github-icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 32%;
+  top: 4%;
 }
