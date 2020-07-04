@@ -9,6 +9,7 @@ html {
 
 #search {
   margin-left: 55px;
+  margin-top: 10px;
 }
 
 #configuring-request,
@@ -20,6 +21,10 @@ html {
   width: 500px;
   height: fit-content;
   padding: 20px;
+}
+
+#configuring-request {
+  margin-top: 50px;
 }
 
 h1 {
@@ -176,9 +181,8 @@ ul {
 }
 
 #github-icon {
-  position: absolute;
-  width: 50px;
+  margin-top: 0px;
   height: 50px;
-  left: 32%;
-  top: 4%;
+  width: 50px;
+  float: left;
 }

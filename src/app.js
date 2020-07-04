@@ -56,7 +56,7 @@ async function navigateServer() {
   } else {
     ul.textContent = "";
     objCount = 0;
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < responseData.items.length; i++) {
       //100 is the max repositories per page
       let path = responseData.items[i];
       const jsonObj = {
