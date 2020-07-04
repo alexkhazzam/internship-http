@@ -125,7 +125,7 @@ button:hover {
 }
 
 #loading {
-  top: 200px;
+  top: 300px;
   left: 47%;
   position: absolute;
   display: none;
@@ -194,4 +194,8 @@ ul {
   height: 50px;
   width: 50px;
   float: left;
+}
+
+.p-hover:hover {
+  cursor: pointer;
 }

@@ -109,9 +109,17 @@ function appendToDOM(obj, objName) {
     p3.textContent = `Language: ${obj.language}`;
     const p4 = document.createElement("p");
     p4.textContent = `Github Url: ${obj.githubUrl}`;
+    p4.className = 'p-hover'
+    p4.addEventListener('click', () => {
+      open(`${obj.githubUrl}`)
+    })
     p4.style.color = "blue";
     const p5 = document.createElement("p");
     p5.textContent = `Homepage Url: ${obj.homepageUrl}`;
+    p5.addEventListener('click', () => {
+      open(`${obj.homepageUrl}`)
+    })
+    p5.className = 'p-hover';
     p5.style.color = "blue";
     const p6 = document.createElement("p");
     p6.textContent = `Created: ${obj.created}`;
