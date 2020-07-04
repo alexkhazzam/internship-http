@@ -1,6 +1,7 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
 const clearBtn = document.querySelector("#clear");
+const search = document.querySelector("#search");
 const itemInfo = document.querySelector("#item-information");
 let userInput = document.querySelector("input");
 const h1 = document.querySelector("#search-header");
@@ -12,12 +13,14 @@ let currentObjectCount = 0;
 let invalidOrNot;
 let totalChildren = 0;
 
+//using single quotes for a more modern JavaScript-feel
+
 function sendHttpRequest(method, url) {
   const promise = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url);
 
-    xhr.responseType = "json"; //no need for "JSON.parse()"
+    xhr.responseType = "json"; //alternatively, can do "JSON.parse()"
 
     xhr.onload = function () {
       resolve(xhr.response);
@@ -45,11 +48,12 @@ function sendHttpRequest(method, url) {
 }
 
 async function navigateServer() {
+  const queryString = `https://api.github.com/search/repositories?q=name:${userInput.value.trim()}&sort=stars&order=des&per_page=100`
   const responseData = await sendHttpRequest(
     "GET",
-    `https://api.github.com/search/repositories?q=name:${userInput.value.trim()}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
+    queryString //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
   );
-  console.log(responseData);
+  console.log(queryString);
   endModal();
   searchResults.style.display = "block";
   if (responseData.total_count === 0) {
@@ -109,17 +113,17 @@ function appendToDOM(obj, objName) {
     p3.textContent = `Language: ${obj.language}`;
     const p4 = document.createElement("p");
     p4.textContent = `Github Url: ${obj.githubUrl}`;
-    p4.className = 'p-hover'
-    p4.addEventListener('click', () => {
-      open(`${obj.githubUrl}`)
-    })
+    p4.className = "p-hover";
+    p4.addEventListener("click", () => {
+      open(`${obj.githubUrl}`);
+    });
     p4.style.color = "blue";
     const p5 = document.createElement("p");
     p5.textContent = `Homepage Url: ${obj.homepageUrl}`;
-    p5.addEventListener('click', () => {
-      open(`${obj.homepageUrl}`)
-    })
-    p5.className = 'p-hover';
+    p5.addEventListener("click", () => {
+      open(`${obj.homepageUrl}`);
+    });
+    p5.className = "p-hover";
     p5.style.color = "blue";
     const p6 = document.createElement("p");
     p6.textContent = `Created: ${obj.created}`;
@@ -135,7 +139,6 @@ function appendToDOM(obj, objName) {
     listItem.append(h2, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
     totalChildren++;
-    console.log(totalChildren);
     listItem.onmouseover = () => {
       listItem.style.backgroundColor = "white";
     };
@@ -144,6 +147,7 @@ function appendToDOM(obj, objName) {
     closeAllBtn.style.display = "block";
 
     closeAllBtn.addEventListener("click", () => {
+      search.scrollIntoView({ behavior: "smooth" });
       itemInfo.textContent = "";
       information.style.display = "none";
     });
@@ -158,9 +162,9 @@ function appendToDOM(obj, objName) {
     xBtn.addEventListener("click", () => {
       itemInfo.removeChild(listItem);
       totalChildren = totalChildren - 1;
-      console.log(totalChildren);
       if (totalChildren === 0) {
         information.style.display = "none";
+        search.scrollIntoView({ behavior: "smooth" });
       }
     });
   });
