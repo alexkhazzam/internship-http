@@ -25,10 +25,8 @@ function sendHttpRequest(method, url) {
         reject(new Error("Something went wrong!"));
       }
       endModal();
-      searchResults.style.display = "block";
-      information.stly.display = "block";
     };
-
+    
     xhr.onerror = function () {
       console.log(xhr.response);
       console.log(xhr.status);
@@ -45,12 +43,14 @@ async function navigateServer() {
   const responseData = await sendHttpRequest(
     "GET",
     `https://api.github.com/search/repositories?q=${userInput}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
-  );
-  endModal();
-  if (responseData.total_count === 0) {
-    appendErrorToDOM();
-  } else {
-    for (let i = 0; i <= 100; i++) {
+    );
+    endModal();
+    searchResults.style.display = "block";
+    information.style.display = "block";
+    if (responseData.total_count === 0) {
+      appendErrorToDOM();
+    } else {
+      for (let i = 0; i <= 100; i++) {
       //100 is the max repositories per page
       let path = responseData.items[i];
       const jsonObj = {
@@ -128,12 +128,8 @@ function appendToDOM(obj, objName) {
       search.scrollIntoView({ behavior: "smooth" });
     });
     xBtn.addEventListener("click", () => {
-      xBtn.parentElement.parentElement.removeChild(listItem);
+      itemInfo.removeChild(listItem);
       totalChildren -= 1;
-      if (totalChildren === 0) {
-        searchResults.style.display = "none";
-        information.stly.display = "none";
-      }
     });
   });
 }
@@ -142,6 +138,7 @@ function appendErrorToDOM() {
   ul.textContent = "";
   const li = document.createElement("li");
   li.textContent = "INVALID SEARCH - NOTHING FOUND!";
+  information.style.display = 'none';
   ul.append(li);
 }
 
