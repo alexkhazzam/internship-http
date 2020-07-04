@@ -9,7 +9,6 @@ const searchResults = document.querySelector("#search-results");
 const closeAllBtn = document.querySelector("#close-all");
 const information = document.querySelector("#information");
 let objCount = 0;
-let currentObjectCount = 0;
 let invalidOrNot;
 let totalChildren = 0;
 
@@ -84,8 +83,7 @@ async function navigateServer() {
 
 function appendToDOM(obj, objName) {
   clearBtn.style.display = "inline-block";
-  currentObjectCount++;
-  objCount++;
+  objCount++; //keeps track of what number element is in the DOM and displays it for
   const scrollUpBtn = document.querySelector("#scroll-up");
   const li = document.createElement("li");
   li.textContent = `${objCount}: ${objName.name}`;
