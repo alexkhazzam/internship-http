@@ -49,7 +49,7 @@ function sendHttpRequest(method, url) {
 async function navigateServer() {
   const responseData = await sendHttpRequest(
     "GET",
-    `https://api.github.com/search/repositories?q=${userInput.value.trim()}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
+    `https://api.github.com/search/repositories?q=${userInput.value.trim()}&sort=stars&order=des&per_page=100&` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
   );
   endModal();
   searchResults.style.display = "block";
