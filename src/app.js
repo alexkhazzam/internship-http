@@ -76,17 +76,19 @@ function appendToDOM(obj, objName) {
     objCount = 0;
   }
   objCount++;
+  const scrollUpBtn = document.querySelector("#scroll-up");
   const li = document.createElement("li");
   li.textContent = `${objCount}: ${objName.name}`;
   ul.append(li);
   li.addEventListener("click", () => {
     const listItem = document.createElement("li");
     listItem.id = "info-li";
-
+    
     const xBtn = document.createElement("button");
     xBtn.textContent = "X";
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
+    totalChildren++;
 
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
@@ -111,31 +113,26 @@ function appendToDOM(obj, objName) {
 
     listItem.append(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
-    totalChildren++
     listItem.onmouseover = () => {
-      listItem.style.backgroundColor = 'white';
+      listItem.style.backgroundColor = "white";
     };
 
-    const scrollUpBtn = document.querySelector('#scroll-up');
-    scrollUpBtn.style.display = 'block';
-    scrollUpBtn.scrollIntoView({ behavior: 'smooth' });
-    scrollUpBtn.addEventListener('click', () => {
-      const search = document.querySelector('#search');
+    scrollUpBtn.style.display = "block";
+    scrollUpBtn.scrollIntoView({ behavior: "smooth" });
+    scrollUpBtn.addEventListener("click", () => {
+      const search = document.querySelector("#search");
       search.scrollIntoView({ behavior: "smooth" });
     });
     xBtn.addEventListener("click", () => {
       xBtn.parentElement.parentElement.removeChild(listItem);
       totalChildren -= 1;
-      if (totalChildren === 0) {
-        scrollUpBtn.style.display = 'none';
-      }
     });
   });
 }
 
 function appendErrorToDOM() {
-  ul.textContent = '';
-  const li = document.createElement('li');
+  ul.textContent = "";
+  const li = document.createElement("li");
   li.textContent = "INVALID SEARCH - NOTHING FOUND!";
   ul.append(li);
 }
