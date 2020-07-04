@@ -25,7 +25,7 @@ function sendHttpRequest(method, url) {
       resolve(xhr.response);
     };
 
-    xhr.onload = function () {
+    xhr.onload = function () { //wifi errors
       if (xhr.status >= 200 && xhr.status < 300) {
         resolve(xhr.response);
       } else {
@@ -35,7 +35,7 @@ function sendHttpRequest(method, url) {
       endModal();
     };
 
-    xhr.onerror = function () {
+    xhr.onerror = function () { //error with the database itself
       console.log(xhr.response);
       console.log(xhr.status);
       endModal();
@@ -86,19 +86,20 @@ function appendToDOM(obj, objName) {
   objCount++; //keeps track of what number element is in the DOM and displays it for
   const scrollUpBtn = document.querySelector("#scroll-up");
   const li = document.createElement("li");
-  li.textContent = `${objCount}: ${objName.name}`;
+  li.textContent = `${objCount}: ${objName.name}`; //displays name of repository in DOM
   ul.append(li);
-  li.addEventListener("click", () => {
-    information.style.display = "block";
+  li.addEventListener("click", () => { //when clicking on li, DOM renders a detailed view of the repository at the bottom of the page
+    information.style.display = "block"; //making the "information" section visible. This will hold list items that display the repository info of the names clicked
     const listItem = document.createElement("li");
-    listItem.id = "info-li";
+    listItem.id = "info-li"; //this list item will be appended to the information section and will hold the detailed view of the repo
 
-    const xBtn = document.createElement("button");
+    const xBtn = document.createElement("button"); //each li has a delete button that deletes the li from the information section unordered list
     xBtn.textContent = "X";
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
 
-    const h2 = document.createElement("h2");
+    //getting the content of the repository from accessing the objName argument 
+    const h2 = document.createElement("h2"); 
     h2.textContent = objName.name;
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
@@ -107,7 +108,7 @@ function appendToDOM(obj, objName) {
     const p3 = document.createElement("p");
     p3.textContent = `Language: ${obj.language}`;
     const p4 = document.createElement("p");
-    p4.textContent = `Github Url: ${obj.githubUrl}`;
+    p4.textContent = `Github Url: ${obj.githubUrl}`; //making links clickable
     p4.className = "p-hover";
     p4.addEventListener("click", () => {
       open(`${obj.githubUrl}`);
@@ -116,7 +117,7 @@ function appendToDOM(obj, objName) {
     const p5 = document.createElement("p");
     p5.textContent = `Homepage Url: ${obj.homepageUrl}`;
     p5.addEventListener("click", () => {
-      open(`${obj.homepageUrl}`);
+      open(`${obj.homepageUrl}`); //making links clickable
     });
     p5.className = "p-hover";
     p5.style.color = "blue";
@@ -131,6 +132,7 @@ function appendToDOM(obj, objName) {
     const p10 = document.createElement("p");
     p10.textContent = `Open Issues: ${obj.openIssues}`;
 
+    //appending content to the list item
     listItem.append(h2, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
     totalChildren++;
@@ -138,10 +140,11 @@ function appendToDOM(obj, objName) {
       listItem.style.backgroundColor = "white";
     };
 
+    //making buttons visible that will enhance the user experience. When scrollUp is clicked, it will scroll the user to the top of the page so they don't have to manually scroll
     scrollUpBtn.style.display = "block";
-    closeAllBtn.style.display = "block";
+    closeAllBtn.style.display = "block"; 
 
-    closeAllBtn.addEventListener("click", () => {
+    closeAllBtn.addEventListener("click", () => { //deletes all list items in the information section
       search.scrollIntoView({ behavior: "smooth" });
       itemInfo.textContent = "";
       information.style.display = "none";
@@ -165,7 +168,7 @@ function appendToDOM(obj, objName) {
   });
 }
 
-function appendErrorToDOM() {
+function appendErrorToDOM() { //if nothing is found in the Github database, an error message will be displayed to the user 
   ul.textContent = "";
   const li = document.createElement("li");
   li.textContent = "No Results Found";
@@ -174,21 +177,21 @@ function appendErrorToDOM() {
   ul.append(li);
 }
 
-function endModal() {
+function endModal() { //loading display stops spinning and becomes invisible
   loading.style.display = "none";
 }
 
-const searchBtn = document.querySelector("button");
+const searchBtn = document.querySelector("button"); //getting user input
 searchBtn.addEventListener("click", () => {
   if (userInput.value.trim() === "") {
     alert("Enter a valid input.");
   } else {
     loading.style.display = "block";
-    navigateServer();
+    navigateServer(); //begin http request
   }
 });
 
-clearBtn.addEventListener("click", () => {
+clearBtn.addEventListener("click", () => { //clears all the items rendered from search, all items rendered by clicking them, and takes them away from the DOM
   clearBtn.style.display = "none";
   itemInfo.textContent = "";
   userInput.value = "";
@@ -197,7 +200,7 @@ clearBtn.addEventListener("click", () => {
   information.style.display = "none";
 });
 
-userInput.addEventListener("keypress", (e) => {
+userInput.addEventListener("keypress", (e) => { //adding an enter key functionality
   if (e.key === "Enter") {
     searchBtn.click();
   }
