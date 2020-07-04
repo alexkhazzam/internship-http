@@ -1,6 +1,8 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
+const clearBtn = document.querySelector("#clear");
 const itemInfo = document.querySelector("#item-information");
+let userInput = document.querySelector("input");
 const h1 = document.querySelector("#search-header");
 const searchResults = document.querySelector("#search-results");
 const closeAllBtn = document.querySelector("#close-all");
@@ -43,10 +45,9 @@ function sendHttpRequest(method, url) {
 }
 
 async function navigateServer() {
-  let userInput = document.querySelector("input").value.trim();
   const responseData = await sendHttpRequest(
     "GET",
-    `https://api.github.com/search/repositories?q=${userInput}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
+    `https://api.github.com/search/repositories?q=name:${userInput.value.trim()}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
   );
   console.log(responseData);
   endModal();
@@ -80,6 +81,7 @@ async function navigateServer() {
 }
 
 function appendToDOM(obj, objName) {
+  clearBtn.style.display = "inline-block";
   console.log(obj);
   currentObjectCount++;
   objCount++;
@@ -133,12 +135,14 @@ function appendToDOM(obj, objName) {
       itemInfo.textContent = "";
       information.style.display = "none";
     });
+
     h1.style.display = "block";
     scrollUpBtn.scrollIntoView({ behavior: "smooth" });
     scrollUpBtn.addEventListener("click", () => {
       const search = document.querySelector("#search");
       search.scrollIntoView({ behavior: "smooth" });
     });
+
     xBtn.addEventListener("click", () => {
       itemInfo.removeChild(listItem);
       totalChildren = totalChildren - 1;
@@ -165,6 +169,18 @@ function endModal() {
 
 const searchBtn = document.querySelector("button");
 searchBtn.addEventListener("click", () => {
-  loading.style.display = "block";
-  navigateServer();
+  if (userInput.value.trim() === "") {
+    alert("Enter a valid input.");
+  } else {
+    loading.style.display = "block";
+    navigateServer();
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  itemInfo.textContent = "";
+  userInput.value = "";
+  ul.textContent = "";
+  searchResults.style.display = "none";
+  information.style.display = "none";
 });

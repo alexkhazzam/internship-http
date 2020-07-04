@@ -12,6 +12,11 @@ html {
   margin-top: 10px;
 }
 
+#clear {
+  margin-left: 218px;
+  display: none;
+}
+
 #configuring-request,
 #search-results,
 #information {
