@@ -201,7 +201,7 @@ clearBtn.addEventListener("click", () => {
   information.style.display = "none";
 });
 
-userInput.addEventListener('keypress', function (e) {
+userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     searchBtn.click();
   }
