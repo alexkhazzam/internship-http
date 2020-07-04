@@ -1,6 +1,8 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
 const itemInfo = document.querySelector("#item-information");
+const searchResults = document.querySelector("#search-results");
+const information = document.querySelector("#information");
 let objCount = 0;
 let totalChildren = 0;
 
@@ -23,6 +25,8 @@ function sendHttpRequest(method, url) {
         reject(new Error("Something went wrong!"));
       }
       endModal();
+      searchResults.style.display = "block";
+      information.stly.display = "block";
     };
 
     xhr.onerror = function () {
@@ -83,7 +87,7 @@ function appendToDOM(obj, objName) {
   li.addEventListener("click", () => {
     const listItem = document.createElement("li");
     listItem.id = "info-li";
-    
+
     const xBtn = document.createElement("button");
     xBtn.textContent = "X";
     xBtn.className = "x-btn";
@@ -126,6 +130,10 @@ function appendToDOM(obj, objName) {
     xBtn.addEventListener("click", () => {
       xBtn.parentElement.parentElement.removeChild(listItem);
       totalChildren -= 1;
+      if (totalChildren === 0) {
+        searchResults.style.display = "none";
+        information.stly.display = "none";
+      }
     });
   });
 }

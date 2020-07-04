@@ -70,6 +70,7 @@ button:hover {
 #information {
   margin-top: 50px;
   height: fit-content;
+  display: none;
 }
 
 .lds-dual-ring {
