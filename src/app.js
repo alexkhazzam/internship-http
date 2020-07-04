@@ -12,7 +12,8 @@ let objCount = 0;
 let invalidOrNot;
 let totalChildren = 0;
 
-//using single quotes for a more modern JavaScript-feel
+/*IMPORTANT
+when the user enters the name of a repo seperated by a space, this program will render repos that include each word that is SEPERATED BY A SPACE. Can avoid this by entering repositories that includes words seperated by a dash ("-")*/
 
 function sendHttpRequest(method, url) {
   const promise = new Promise((resolve, reject) => {
