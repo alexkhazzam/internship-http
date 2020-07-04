@@ -1,0 +1,56 @@
+Please read the assignment below carefully. Keep track of the time spent on this task.
+
+SETUP
+
+Set up your local system from android dev
+Download the following:
+
+https://developer.android.com/studio
+STEP ONE
+
+Build an Android app that has a Search Page. The search page will have a Search Input, Search Button, Search Results List. When the search button is selected, send an HTTP GET request (https://developer.android.com/training/volley/simple#java) to https://api.github.com/search/repositories using the user-entered search text.
+For example, if the user enters "react-native" in the search input and presses SEARCH, the following URL would be sent over GET
+
+https://api.github.com/search/repositories?q=react-native&sort=stars&order=des
+So you have to build the URL using the user-entered String
+
+String urlString = "https://api.github.com/search/repositories?q=" + searchText + "&sort=stars&order=des"
+The results from GitHub look like this:
+
+{
+  "total_count": 100,
+  "items": [
+    {
+      "id": 29028775,
+      "name": "react-native",
+      "full_name": "facebook/react-native",
+      "html_url": "https://github.com/facebook/react-native",
+      "description": "A framework for building native apps with React.",
+      "created_at": "2015-01-09T18:10:16Z",
+      "updated_at": "2020-07-02T20:49:29Z",
+      "svn_url": "https://github.com/facebook/react-native",
+      "homepage": "https://reactnative.dev",
+      "stargazers_count": 88387,
+      "watchers_count": 88387,
+      "language": "JavaScript",
+      "open_issues_count": 984,
+      "watchers": 88387,
+    }
+]}
+You can parse this JSON string using the built-in JSON parsers (https://www.tutorialspoint.com/android/android_json_parser.htm) Your list page will show the "full_name" field for each item in the "items" array.
+
+If no results are found from the search, display "No matches found" text
+
+STEP TWO
+
+When a user clicks a row from the search results, route the user to a detail view that shows the following values for the selected row
+Full Name (full_name)
+Description (description)
+Language (language)
+GitHub URL (html_url)
+Hompage URL (homepage)
+Created (created_at)
+Updated (updated_at)
+Stars (stargazers_count)
+Watchers (watchers_count)
+Open Issues (open_issues_count)

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="src/app.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <title>Geminid Internship Project</title>
+  </head>
+  <body>
+    <section id="configuring-request">
+      <h1 id="search">Enter a repository name</h1>
+      <input type="text" />
+      <div>
+        <button id="search-button">Search</button>
+      </div>
+    </section>
+    <div id="loading">
+      <div class="lds-dual-ring"></div>
+    </div>
+    <section id="search-results">
+      <h1>Search Results</h1>
+      <ul id="search-results-list"></ul>
+    </section>
+    <section id="information">
+      <h1>Extra Info (click on search result)</h1>
+      <ul id="item-information"></ul>
+      <button id="scroll-up">Scroll Up</button>
+    </section>
+  </body>
+</html>

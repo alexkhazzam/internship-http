@@ -1,0 +1,18 @@
+45 minutes in - commit 1: {
+
+Setting up project--installing webpack and eslint to provide a good development-experience involving saving code automatically with npm run build:dev and bundling production-ready code with npm run build:prod; also creating multiple JS files in the "src" folder to structure the code in order to have it well organized and not "all over the place." Don't know if I will keep the Packages folder; it is there so that if the user clicks on their searched item, it will redirect them to another page that renders that item's content.
+
+}
+
+1 hour 30 minutes in - commit 2: {
+
+    configuring a GET request. Didn't hook it up to the "search" button yet--just wanted to handle the HTTP request before anything else. It was tricky getting the nested elements but I managed to do it with a for loop--amongst some other things. Writing the structure of the HTTP request took time as well, and it was time consuming trying to figure out a way to target the nested elements in the "items" array. I used xml instead of the fetch() API because it is used in old and new browsers, whereas the fetch() API is only used in modern ones--some people will not be able to access it. I will be adding some error-handling features to this GET request in the later commits.
+
+}
+
+2 hours in - commit 3: {
+
+    I've decided to not use modules for this project--there are too many errors stemming from this, and because I am on a time crunch, I think its best to put all the classes together in one file -- a little messier, but at least the error count will decrease significantly, making it easer to work on the code and not constantly fixing errors.
+
+}
+
