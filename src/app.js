@@ -4,6 +4,7 @@ const itemInfo = document.querySelector("#item-information");
 const searchResults = document.querySelector("#search-results");
 const information = document.querySelector("#information");
 let objCount = 0;
+let invalidOrNot;
 let totalChildren = 0;
 
 function sendHttpRequest(method, url) {
@@ -137,7 +138,7 @@ function appendToDOM(obj, objName) {
 function appendErrorToDOM() {
   ul.textContent = "";
   const li = document.createElement("li");
-  li.textContent = "INVALID SEARCH - NOTHING FOUND!";
+  li.textContent = "No Results Found";
   information.style.display = 'none';
   ul.append(li);
 }
