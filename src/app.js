@@ -178,6 +178,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 clearBtn.addEventListener("click", () => {
+  clearBtn.style.display = 'none';
   itemInfo.textContent = "";
   userInput.value = "";
   ul.textContent = "";
