@@ -17,6 +17,10 @@ html {
   display: none;
 }
 
+h2 {
+  color: #ff0062;
+}
+
 #configuring-request,
 #search-results,
 #information {

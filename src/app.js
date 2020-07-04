@@ -99,6 +99,8 @@ function appendToDOM(obj, objName) {
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
 
+    const h2 = document.createElement('h2');
+    h2.textContent = objName.name;
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
     const p2 = document.createElement("p");
@@ -120,7 +122,7 @@ function appendToDOM(obj, objName) {
     const p10 = document.createElement("p");
     p10.textContent = `Open Issues: ${obj.openIssues}`;
 
-    listItem.append(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+    listItem.append(h2, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
     totalChildren++;
     console.log(totalChildren);
