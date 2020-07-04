@@ -86,7 +86,6 @@ async function navigateServer() {
 
 function appendToDOM(obj, objName) {
   clearBtn.style.display = "inline-block";
-  console.log(obj);
   currentObjectCount++;
   objCount++;
   const scrollUpBtn = document.querySelector("#scroll-up");
@@ -200,4 +199,10 @@ clearBtn.addEventListener("click", () => {
   ul.textContent = "";
   searchResults.style.display = "none";
   information.style.display = "none";
+});
+
+userInput.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    searchBtn.click();
+  }
 });
