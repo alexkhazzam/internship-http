@@ -1,7 +1,7 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
 const itemInfo = document.querySelector("#item-information");
-const h1 = document.querySelector('#search-header');
+const h1 = document.querySelector("#search-header");
 const searchResults = document.querySelector("#search-results");
 const closeAllBtn = document.querySelector("#close-all");
 const information = document.querySelector("#information");
@@ -54,7 +54,9 @@ async function navigateServer() {
   if (responseData.total_count === 0) {
     appendErrorToDOM();
   } else {
-    for (let i = 0; i <= 100; i++) {
+    ul.textContent = "";
+    objCount = 0;
+    for (let i = 0; i < 100; i++) {
       //100 is the max repositories per page
       let path = responseData.items[i];
       const jsonObj = {
@@ -72,19 +74,14 @@ async function navigateServer() {
       const objName = {
         name: path.name,
       };
-      console.log(jsonObj);
       appendToDOM(jsonObj, objName);
     }
   }
 }
 
 function appendToDOM(obj, objName) {
-  if (ul.childElementCount === 100) {
-    ul.textContent = "";
-    itemInfo.textContent = "";
-    objCount = 0;
-  }
-  currentObjectCount++
+  console.log(obj);
+  currentObjectCount++;
   objCount++;
   const scrollUpBtn = document.querySelector("#scroll-up");
   const li = document.createElement("li");
@@ -94,12 +91,12 @@ function appendToDOM(obj, objName) {
     information.style.display = "block";
     const listItem = document.createElement("li");
     listItem.id = "info-li";
-    
+
     const xBtn = document.createElement("button");
     xBtn.textContent = "X";
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
-    
+
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
     const p2 = document.createElement("p");
@@ -120,7 +117,7 @@ function appendToDOM(obj, objName) {
     p9.textContent = `Watchers: ${obj.watchers}`;
     const p10 = document.createElement("p");
     p10.textContent = `Open Issues: ${obj.openIssues}`;
-    
+
     listItem.append(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
     totalChildren++;
@@ -128,15 +125,15 @@ function appendToDOM(obj, objName) {
     listItem.onmouseover = () => {
       listItem.style.backgroundColor = "white";
     };
-    
+
     scrollUpBtn.style.display = "block";
     closeAllBtn.style.display = "block";
-    
+
     closeAllBtn.addEventListener("click", () => {
       itemInfo.textContent = "";
       information.style.display = "none";
     });
-    h1.style.display = 'block';
+    h1.style.display = "block";
     scrollUpBtn.scrollIntoView({ behavior: "smooth" });
     scrollUpBtn.addEventListener("click", () => {
       const search = document.querySelector("#search");
@@ -154,10 +151,10 @@ function appendToDOM(obj, objName) {
 }
 
 function appendErrorToDOM() {
-  ul.textContent = '';
-  const li = document.createElement('li');
-  li.textContent = 'No Results Found';
-  h1.style.display = 'none';
+  ul.textContent = "";
+  const li = document.createElement("li");
+  li.textContent = "No Results Found";
+  h1.style.display = "none";
   information.style.display = "none";
   ul.append(li);
 }
