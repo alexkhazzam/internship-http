@@ -89,6 +89,7 @@ function appendToDOM(obj, objName) {
   const li = document.createElement("li");
   li.textContent = `${objCount}: ${objName.name}`; //displays name of repository in DOM
   ul.append(li);
+  h1.style.display = "block"; //header of searched items is displayed
   li.addEventListener("click", () => { //when clicking on li, DOM renders a detailed view of the repository at the bottom of the page
     information.style.display = "block"; //making the "information" section visible. This will hold list items that display the repository info of the names clicked
     const listItem = document.createElement("li");
@@ -151,7 +152,6 @@ function appendToDOM(obj, objName) {
       information.style.display = "none";
     });
 
-    h1.style.display = "block";
     scrollUpBtn.scrollIntoView({ behavior: "smooth" });
     scrollUpBtn.addEventListener("click", () => {
       const search = document.querySelector("#search");
