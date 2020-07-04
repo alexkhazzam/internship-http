@@ -1,9 +1,12 @@
 const loading = document.querySelector("#loading");
 const ul = document.querySelector("#search-results-list");
 const itemInfo = document.querySelector("#item-information");
+const h1 = document.querySelector('#search-header');
 const searchResults = document.querySelector("#search-results");
+const closeAllBtn = document.querySelector("#close-all");
 const information = document.querySelector("#information");
 let objCount = 0;
+let currentObjectCount = 0;
 let invalidOrNot;
 let totalChildren = 0;
 
@@ -45,6 +48,7 @@ async function navigateServer() {
     "GET",
     `https://api.github.com/search/repositories?q=${userInput}&sort=stars&order=des&per_page=100` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
   );
+  console.log(responseData);
   endModal();
   searchResults.style.display = "block";
   if (responseData.total_count === 0) {
@@ -79,6 +83,7 @@ function appendToDOM(obj, objName) {
     itemInfo.textContent = "";
     objCount = 0;
   }
+  currentObjectCount++
   objCount++;
   const scrollUpBtn = document.querySelector("#scroll-up");
   const li = document.createElement("li");
@@ -88,13 +93,12 @@ function appendToDOM(obj, objName) {
     information.style.display = "block";
     const listItem = document.createElement("li");
     listItem.id = "info-li";
-
+    
     const xBtn = document.createElement("button");
     xBtn.textContent = "X";
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
-    totalChildren++;
-
+    
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
     const p2 = document.createElement("p");
@@ -115,14 +119,23 @@ function appendToDOM(obj, objName) {
     p9.textContent = `Watchers: ${obj.watchers}`;
     const p10 = document.createElement("p");
     p10.textContent = `Open Issues: ${obj.openIssues}`;
-
+    
     listItem.append(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
+    totalChildren++;
+    console.log(totalChildren);
     listItem.onmouseover = () => {
       listItem.style.backgroundColor = "white";
     };
-
+    
     scrollUpBtn.style.display = "block";
+    closeAllBtn.style.display = "block";
+    
+    closeAllBtn.addEventListener("click", () => {
+      itemInfo.textContent = "";
+      information.style.display = "none";
+    });
+    h1.style.display = 'block';
     scrollUpBtn.scrollIntoView({ behavior: "smooth" });
     scrollUpBtn.addEventListener("click", () => {
       const search = document.querySelector("#search");
@@ -130,18 +143,20 @@ function appendToDOM(obj, objName) {
     });
     xBtn.addEventListener("click", () => {
       itemInfo.removeChild(listItem);
-      totalChildren -= 1;
+      totalChildren = totalChildren - 1;
+      console.log(totalChildren);
       if (totalChildren === 0) {
-        information.style.display = 'none';
+        information.style.display = "none";
       }
     });
   });
 }
 
 function appendErrorToDOM() {
-  ul.textContent = "";
-  const li = document.createElement("li");
-  li.textContent = "No Results Found";
+  ul.textContent = '';
+  const li = document.createElement('li');
+  li.textContent = 'No Results Found';
+  h1.style.display = 'none';
   information.style.display = "none";
   ul.append(li);
 }
