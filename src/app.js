@@ -99,7 +99,7 @@ function appendToDOM(obj, objName) {
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
 
-    const h2 = document.createElement('h2');
+    const h2 = document.createElement("h2");
     h2.textContent = objName.name;
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
@@ -109,8 +109,10 @@ function appendToDOM(obj, objName) {
     p3.textContent = `Language: ${obj.language}`;
     const p4 = document.createElement("p");
     p4.textContent = `Github Url: ${obj.githubUrl}`;
+    p4.style.color = "blue";
     const p5 = document.createElement("p");
     p5.textContent = `Homepage Url: ${obj.homepageUrl}`;
+    p5.style.color = "blue";
     const p6 = document.createElement("p");
     p6.textContent = `Created: ${obj.created}`;
     const p7 = document.createElement("p");
@@ -180,7 +182,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 clearBtn.addEventListener("click", () => {
-  clearBtn.style.display = 'none';
+  clearBtn.style.display = "none";
   itemInfo.textContent = "";
   userInput.value = "";
   ul.textContent = "";
