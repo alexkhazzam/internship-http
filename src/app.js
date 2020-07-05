@@ -26,7 +26,8 @@ function sendHttpRequest(method, url) {
       resolve(xhr.response);
     };
 
-    xhr.onload = function () { //wifi errors
+    xhr.onload = function () {
+      //wifi errors
       if (xhr.status >= 200 && xhr.status < 300) {
         resolve(xhr.response);
       } else {
@@ -36,7 +37,8 @@ function sendHttpRequest(method, url) {
       endModal();
     };
 
-    xhr.onerror = function () { //error with the database itself
+    xhr.onerror = function () {
+      //error with the server itself
       console.log(xhr.response);
       console.log(xhr.status);
       endModal();
@@ -54,11 +56,6 @@ async function navigateServer() {
   );
   endModal();
   searchResults.style.display = "block";
-  if (responseData.total_count === 0) {
-    appendErrorToDOM();
-  } else {
-    ul.textContent = "";
-    objCount = 0;
     for (let i = 0; i < responseData.items.length; i++) {
       //100 is the max repositories per page
       let path = responseData.items[i];
@@ -79,10 +76,9 @@ async function navigateServer() {
       };
       appendToDOM(jsonObj, objName);
     }
-  }
 }
 
-function appendToDOM(obj, objName) {
+function appendToDOM(obj, objName, boolean) {
   clearBtn.style.display = "inline-block";
   objCount++; //keeps track of what number element is in the DOM and displays it for
   const scrollUpBtn = document.querySelector("#scroll-up");
@@ -90,7 +86,8 @@ function appendToDOM(obj, objName) {
   li.textContent = `${objCount}: ${objName.name}`; //displays name of repository in DOM
   ul.append(li);
   h1.style.display = "block"; //header of searched items is displayed
-  li.addEventListener("click", () => { //when clicking on li, DOM renders a detailed view of the repository at the bottom of the page
+  li.addEventListener("click", () => {
+    //when clicking on li, DOM renders a detailed view of the repository at the bottom of the page
     information.style.display = "block"; //making the "information" section visible. This will hold list items that display the repository info of the names clicked
     const listItem = document.createElement("li");
     listItem.id = "info-li"; //this list item will be appended to the information section and will hold the detailed view of the repo
@@ -100,8 +97,8 @@ function appendToDOM(obj, objName) {
     xBtn.className = "x-btn";
     listItem.appendChild(xBtn);
 
-    //getting the content of the repository from accessing the objName argument 
-    const h2 = document.createElement("h2"); 
+    //getting the content of the repository by accessing the objName argument
+    const h2 = document.createElement("h2");
     h2.textContent = objName.name;
     const p1 = document.createElement("p");
     p1.textContent = `Full Name: ${obj.fullName}`;
@@ -134,6 +131,10 @@ function appendToDOM(obj, objName) {
     const p10 = document.createElement("p");
     p10.textContent = `Open Issues: ${obj.openIssues}`;
 
+    if (boolean) {
+      const pagination = document.querySelector("#pagination");
+      pagination.style.display = "block";
+    }
     //appending content to the list item
     listItem.append(h2, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     itemInfo.append(listItem);
@@ -144,9 +145,10 @@ function appendToDOM(obj, objName) {
 
     //making buttons visible that will enhance the user experience. When scrollUp is clicked, it will scroll the user to the top of the page so they don't have to manually scroll
     scrollUpBtn.style.display = "block";
-    closeAllBtn.style.display = "block"; 
+    closeAllBtn.style.display = "block";
 
-    closeAllBtn.addEventListener("click", () => { //deletes all list items in the information section
+    closeAllBtn.addEventListener("click", () => {
+      //deletes all list items in the information section
       search.scrollIntoView({ behavior: "smooth" });
       itemInfo.textContent = "";
       information.style.display = "none";
@@ -169,7 +171,8 @@ function appendToDOM(obj, objName) {
   });
 }
 
-function appendErrorToDOM() { //if nothing is found in the Github database, an error message will be displayed to the user 
+function appendErrorToDOM() {
+  //if nothing is found in the Github database, an error message will be displayed to the user
   ul.textContent = "";
   const li = document.createElement("li");
   li.textContent = "No Results Found";
@@ -178,7 +181,8 @@ function appendErrorToDOM() { //if nothing is found in the Github database, an e
   ul.append(li);
 }
 
-function endModal() { //loading display stops spinning and becomes invisible
+function endModal() {
+  //loading display stops spinning and becomes invisible
   loading.style.display = "none";
 }
 
@@ -192,7 +196,8 @@ searchBtn.addEventListener("click", () => {
   }
 });
 
-clearBtn.addEventListener("click", () => { //clears all the items rendered from search, all items rendered by clicking them, and takes them away from the DOM
+clearBtn.addEventListener("click", () => {
+  //clears all the items rendered from search, all items rendered by clicking them, and takes them away from the DOM
   clearBtn.style.display = "none";
   itemInfo.textContent = "";
   userInput.value = "";
@@ -201,7 +206,8 @@ clearBtn.addEventListener("click", () => { //clears all the items rendered from 
   information.style.display = "none";
 });
 
-userInput.addEventListener("keypress", (e) => { //adding an enter key functionality
+userInput.addEventListener("keypress", (e) => {
+  //adding an enter key functionality
   if (e.key === "Enter") {
     searchBtn.click();
   }
