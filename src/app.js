@@ -55,6 +55,8 @@ async function navigateServer() {
     `https://api.github.com/search/repositories?q=${userInput.value.trim()}&sort=stars&order=des&per_page=100&` //100 per page seems to be the max...CPU will blow up--doesn't go more. Need to parse JSON data for every other page until there is no more data left
   );
   endModal();
+  ul.textContent = "";
+  objCount = 0;
   searchResults.style.display = "block";
     for (let i = 0; i < responseData.items.length; i++) {
       //100 is the max repositories per page
@@ -186,7 +188,7 @@ function endModal() {
   loading.style.display = "none";
 }
 
-const searchBtn = document.querySelector("button"); //getting user input
+const searchBtn = document.querySelector("#search-button"); //getting user input
 searchBtn.addEventListener("click", () => {
   if (userInput.value.trim() === "") {
     alert("Enter a valid input.");
